@@ -23,7 +23,7 @@ class Vendor:
 
     @staticmethod
     def show_prices():
-        """Prints the current vendor prices."""
+        """Display all vendor prices for each type of supply."""
         for name, items in Vendor.vendor_prices.items():
             print(f"{name}:")
             for k, v in items.items():
