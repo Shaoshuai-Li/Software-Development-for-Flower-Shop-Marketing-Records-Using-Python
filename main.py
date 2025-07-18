@@ -17,7 +17,7 @@ def input_int(prompt, min_value=0, max_value=None, allow_blank=False):
         try:
             ivalue = int(value)
             if ivalue < min_value or (max_value is not None and ivalue > max_value):
-                print(f"Value must be between {min_value} and {max_value or '∞'}.")
+                print(f"Sorry,Value must be between {min_value} and {max_value or '∞'}.")
                 continue
             return ivalue
         except ValueError:
