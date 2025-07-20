@@ -78,10 +78,43 @@ def main():
         print("Current staff:", [str(f) for f in shop.florists])
 
         # Bouquet sales input
+        temp_inventory = shop.inventory.copy()
         orders = {}
         max_labour = shop.get_total_labour_minutes()
         total_labour = 0
         for btype in Bouquet.types:
+            while True:
+                qty = input_int(
+                    f"{btype} (max demand {Bouquet.types[btype]['demand']}): ",
+                    0, Bouquet.types[btype]['demand']
+                )
+
+                # 检查 labour
+                labour_needed = Bouquet.types[btype]['prep_time'] * qty
+                if total_labour + labour_needed > max_labour:
+                    print("Not enough employee resources to complete this many bouquets.")
+                    continue
+
+                # 检查 & 扣除临时库存
+                ok = True
+                for fl in ("Greenery", "Roses", "Daisies"):
+                    need = Bouquet.types[btype][fl] * qty
+                    if temp_inventory[fl] < need:
+                        ok = False
+                        break
+                if not ok:
+                    print("Insufficient supplies for this bouquet.")
+                    continue
+
+                # 合法 —— 更新
+                orders[btype] = qty
+                total_labour += labour_needed
+                for fl in ("Greenery", "Roses", "Daisies"):
+                    temp_inventory[fl] -= Bouquet.types[btype][fl] * qty
+                break
+
+            '''
+            原来的
             while True:
                 qty = input_int(f"{btype} (max demand {Bouquet.types[btype]['demand']}): ", 0, Bouquet.types[btype]['demand'])
                 if not shop.can_fulfill_order(btype, qty):
@@ -94,20 +127,35 @@ def main():
                 orders[btype] = qty
                 total_labour += labour_needed
                 break
-
+                '''
         print("-"*50)
         print("Month in progress...\n")
         # Month end calculations
         try:
             print(f"Cash Balance, Month Start: £{shop.cash:.2f}")
+            #Income
             income = shop.calculate_income(orders)
             shop.cash += income
             print(f"Income: £{income:.2f}")
+            #Employee costs
             emp_cost = shop.pay_florists()
             print(f"+ Employee costs: £{emp_cost:.2f}")
+
+            '''
             gh_cost = shop.pay_greenhouse()
             print(f"+ Greenhouse costs: £{gh_cost:.2f}")
+            '''
+            # 3️⃣ 房租
+            rent_cost = shop.pay_rent()
+            print(f"+ Rent: £{rent_cost:.2f}")
+
+            # 4️⃣ 扣库存（售出）
             shop.fulfill_orders(orders)
+            # 5️⃣ 仓储费（售后、折旧前）
+            storage_cost = shop.pay_storage_costs()
+            print(f"+ Greenhouse costs: £{storage_cost:.2f}")
+
+            #show_status
             shop.show_status()
             shop.depreciate_inventory()
             # Restock
