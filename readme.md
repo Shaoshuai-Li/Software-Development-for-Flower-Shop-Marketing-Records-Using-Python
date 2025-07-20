@@ -26,6 +26,8 @@ It follows precisely the five steps set out in the coursework brief:
 
 All code cells contain **docstrings** and inline comments; every step is accompanied by a markdown interpretation as required.
 
+All code and analysis are my own work except minimal praw authentication boiler‑plate from the official docs (MIT‑licensed).
+
 ---
 
 ## 2.2 Quick Start
@@ -40,6 +42,3 @@ python -m venv .venv
 .venv\Scripts\activate # Windows
 
 pip install pandas numpy matplotlib scikit-learn praw
-
-
-
