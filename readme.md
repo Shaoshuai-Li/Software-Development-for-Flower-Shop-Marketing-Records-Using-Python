@@ -2,7 +2,7 @@
 *Author : **Shaoshuai Li***  
 *UoB User: **bf24104***  
 *Module  : Software Development – Programming and Algorithms*  
-*github:**https://github.com/Shaoshuai-Li/bf24104_SEMTM0024.git***
+*GitHub repository:**https://github.com/Shaoshuai-Li/bf24104_SEMTM0024.git***
 ---
 
 ## 0 Repository Structure
