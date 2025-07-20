@@ -11,12 +11,12 @@ class Vendor:
     vendor_prices = {
         "Evergreen Essentials": {
             "Roses": 2.80,
-            "Daises": 1.50,
+            "Daisies": 1.50,
             "Greenery": 0.95
         },
         "FloraGrow Distributors": {
             "Roses": 1.60,
-            "Daises": 1.20,
+            "Daisies": 1.20,
             "Greenery": 1.80
         }
     }

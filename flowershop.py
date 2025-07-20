@@ -12,9 +12,9 @@ import math
 class FlowerShop:
     """Manages shop inventory, florists, cash, and simulates each month."""
     # Initial constants
-    GREENHOUSE_CAPACITY = {"Roses": 100, "Daises": 150, "Greenery": 200}
-    DEPRECIATION = {"Roses": 0.4, "Daises": 0.15, "Greenery": 0.05}
-    GREENHOUSE_COSTS = {"Roses": 2.5, "Daises": 1.0, "Greenery": 0.4}
+    GREENHOUSE_CAPACITY = {"Roses": 100, "Daisies": 150, "Greenery": 200}
+    DEPRECIATION = {"Roses": 0.4, "Daisies": 0.15, "Greenery": 0.05}
+    GREENHOUSE_COSTS = {"Roses": 2.5, "Daisies": 1.0, "Greenery": 0.4}
     RENT = 1000
     INITIAL_CASH = 7500
     MAX_FLORISTS = 4
@@ -92,7 +92,7 @@ class FlowerShop:
     def can_fulfill_order(self, bouquet_type, amount):
         """Check if order can be fulfilled with current supplies."""
         reqs = Bouquet.types[bouquet_type]
-        for flower in ["Greenery", "Roses", "Daises"]:
+        for flower in ["Greenery", "Roses", "Daisies"]:
             if self.inventory[flower] < reqs[flower] * amount:
                 return False
         return True
@@ -101,7 +101,7 @@ class FlowerShop:
         """Deduct ingredients for orders from inventory."""
         for b_type, qty in order_dict.items():
             reqs = Bouquet.types[b_type]
-            for flower in ["Greenery", "Roses", "Daises"]:
+            for flower in ["Greenery", "Roses", "Daisies"]:
                 self.inventory[flower] -= reqs[flower] * qty
 
     def calculate_income(self, order_dict):
