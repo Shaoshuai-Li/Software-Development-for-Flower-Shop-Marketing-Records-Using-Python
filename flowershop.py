@@ -42,7 +42,9 @@ class FlowerShop:
 
     # === Main monthly simulation logic ===
     def get_total_labour_minutes(self):
-        """Total bouquet making time available from all florists."""
+        """Total bouquet making time available from all florists.
+        Return the bouquet‑making minutes available this month.
+        Each florist works ``MONTHLY_HOURS`` hours; multiply by 60 to convert hours to minutes"""
         return sum([Florist.MONTHLY_HOURS * 60 for _ in self.florists])
 
     def pay_florists(self):
@@ -63,8 +65,13 @@ class FlowerShop:
         self.cash -= cost
         return cost
     '''
-    def pay_rent(self) -> int:
-        """Pay the fixed monthly rent.  Raises if cash不足."""
+    def pay_rent(self):
+        """Pay the fixed monthly rent(1000).
+        Returns:
+            int: The rent amount paid (always ``self.RENT``).
+        Raises:
+            RuntimeError: If ``cash`` on hand is insufficient.
+        """
         if self.cash < self.RENT:
             raise RuntimeError("Not enough cash to pay rent!")
         self.cash -= self.RENT

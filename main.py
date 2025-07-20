@@ -24,6 +24,7 @@ def input_int(prompt, min_value=0, max_value=None, allow_blank=False):
             print("Please enter a valid integer.")
 
 def main():
+    '''Command‑line entry point running the monthly simulation loop'''
     print("-"*50)
     print("Welcome to the FlowerShop Simulator!")
     print("-"*50)
@@ -139,23 +140,24 @@ def main():
             print(f"Income: £{income:.2f}")
             #Employee costs
             emp_cost = shop.pay_florists()
-            print(f"+ Employee costs: £{emp_cost:.2f}")
+            print(f"Outcome-Employee costs: £{emp_cost:.2f}")
 
             '''
             gh_cost = shop.pay_greenhouse()
             print(f"+ Greenhouse costs: £{gh_cost:.2f}")
             '''
-            # 3️⃣ 房租
+            # 3️⃣ 房租rent
             rent_cost = shop.pay_rent()
-            print(f"+ Rent: £{rent_cost:.2f}")
+            print(f"Outcome-Rent: £{rent_cost:.2f}")
 
-            # 4️⃣ 扣库存（售出）
+            # 扣库存（售出）
             shop.fulfill_orders(orders)
-            # 5️⃣ 仓储费（售后、折旧前）
-            storage_cost = shop.pay_storage_costs()
-            print(f"+ Greenhouse costs: £{storage_cost:.2f}")
 
-            #show_status
+            # 仓储费（售后、折旧前）Storage fees (after sales, before depreciation)
+            storage_cost = shop.pay_storage_costs()
+            print(f"Outcome-Greenhouse costs: £{storage_cost:.2f}")
+
+            #show the status
             shop.show_status()
             shop.depreciate_inventory()
             # Restock
@@ -173,7 +175,7 @@ def main():
                     vendors_choice[flower] = int(choice)
                     break
             restock_cost = shop.restock(vendors_choice)
-            print(f"+ Flower restock costs: £{restock_cost:.2f}")
+            print(f"Outcome-Flower restock costs: £{restock_cost:.2f}")
             print(f"End-of-month Cash Balance: £{shop.cash:.2f}")
         except Exception as e:
             print("BANKRUPT! Simulation ends.")

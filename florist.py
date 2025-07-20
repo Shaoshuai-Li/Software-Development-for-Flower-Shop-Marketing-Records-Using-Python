@@ -13,11 +13,12 @@ class Florist:
 
     def __init__(self, name, speciality=None):
         """
-        :param name: Florist's name.
-        :param speciality: The bouquet type the florist specialises in (optional).
+        :parameter name:Florist's name.
+        :parameter speciality:The bouquet type the florist specialises in .
         """
         self.name = name
         self.speciality = speciality
 
     def __repr__(self):
+        '''Return readable representation used in staff lists'''
         return f"{self.name}" + (f" (specialised in {self.speciality})" if self.speciality else "")
