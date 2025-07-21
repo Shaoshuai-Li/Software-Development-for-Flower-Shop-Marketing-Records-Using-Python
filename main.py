@@ -32,7 +32,8 @@ def main():
     print("Welcome to the FlowerShop Simulator!")
     print("-"*50)
 
-    months = input_int("How many months would you like to run the game for? [default: 6]: ", 1)
+    months = input_int("How many months would you like to run the game for? "
+                       "[default: please enter 6 to simulate 6 months of operation.]: ", 1)
     if not months:
         months = 6
 

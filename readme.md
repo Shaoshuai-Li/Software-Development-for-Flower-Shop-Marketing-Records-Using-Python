@@ -35,7 +35,7 @@ The program allows users (the shop owner) to:
 
 ## Key Classes & Methods
 
-### 1. `bouquet.py` — Bouquet Types and Requirements
+### 1. bouquet.py — Bouquet Types and Requirements
 
 **Class`Bouquet`**
 
@@ -43,7 +43,7 @@ The program allows users (the shop owner) to:
 
 ---
 
-### 2. `florist.py` — Florist Management
+### 2. florist.py — Florist Management
 
 **Class`Florist`**
 
@@ -58,7 +58,7 @@ The program allows users (the shop owner) to:
 
 ---
 
-### 3. `vendor.py` — Supply Vendors
+### 3. vendor.py — Supply Vendors
 
 **Class`Vendor`**
 
@@ -70,7 +70,7 @@ The program allows users (the shop owner) to:
 
 ---
 
-### 4. `flowershop.py` — Shop Management
+### 4. flowershop.py — Shop Management
 
 **Class`FlowerShop`**
 
@@ -92,7 +92,7 @@ All cost‑deduction methods raise **`RuntimeError`** if cash would go negative;
 
 ---
 
-### 5. `main.py` — User Interface & Simulation Driver
+### 5. main.py — User Interface & Simulation Driver
 
 * Manages the full month‑by‑month loop:
 
@@ -142,15 +142,16 @@ The supply options indicate the corresponding number of each supplier as 0 or 1.
 The notebook **`Part2.ipynb`** demonstrates an end‑to‑end data‑science pipeline that answers the question  
 > *“What factors drive user engagement (number of comments) on r/technology posts?”*
 
-It follows precisely the five steps set out in the coursework brief:
 
-| Step | Brief description                                                                                                                                                                                                                            | Where?          |
-|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| 1 | **Data scraping** – 200 hot posts from r/technology collected via Reddit API (`praw`). Saved as `reddit_technology_posts.csv`.                                                                                                               | Notebook Step 1 |
-| 2 | **Data preparation & cleaning** – Handles missing `selftext`, removes negative scores, parses `created_utc`, engineers `hour`, `weekday`, `text_length`. Each action explained in markdown.                                                  | Notebook Step 2 |
-| 3 | **Exploratory analysis** – Prints descriptive stats & plots histograms, scatter plots, time‑of‑day and weekday charts – each with interpretation.                                                                                            | Notebook Step 3 |
-| 4 | **Complex question** – Main question plus 4 sub‑questions (timing, score‑comments, post‑type, regression). Includes correlation (r = 0.76), bar/line charts and a multiple linear‑regression (R² = 0.58). All graphs labelled and explained. | Notebook Step 4 |
-| 5 | **Summary & conclusion** – Summarises five key findings and proposes future‑work directions (larger dataset, richer features, ensemble models).                                                                                                                                                                      | Notebook Step 5 |
+The five steps:
+
+| Step | Brief description                                                                                                                                                                                                                            |
+|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1 | **Data scraping** – 200 hot posts from r/technology collected via Reddit API (`praw`). Saved as `reddit_technology_posts.csv`.                                                                                                               |
+| 2 | **Data preparation & cleaning** – Handles missing `selftext`, removes negative scores, parses `created_utc`, engineers `hour`, `weekday`, `text_length`. Each action explained in markdown.                                                  |
+| 3 | **Exploratory analysis** – Prints descriptive stats & plots histograms, scatter plots, time‑of‑day and weekday charts – each with interpretation.                                                                                            |
+| 4 | **Complex question** – Main question plus 4 sub‑questions (timing, score‑comments, post‑type, regression). Includes correlation (r = 0.76), bar/line charts and a multiple linear‑regression (R² = 0.58). All graphs labelled and explained. |
+| 5 | **Summary & conclusion** – Summarises five key findings and proposes future‑work directions (larger dataset, richer features, ensemble models).                                                                                                                                                                      |
 
 All code cells contain **docstrings** and inline comments; every step is accompanied by a markdown interpretation as required.
 
