@@ -9,7 +9,7 @@
 
 ### Project Description
 
-FlowerShop Simulator is a text-based, object-oriented simulation of a flower shop that manages bouquet sales, employee scheduling, greenhouse inventory, and finances. The goal is to maximize profit and avoid bankruptcy by making strategic decisions each month.
+FlowerShop Simulator is a text-based, object-oriented simulation of a flower shop that manages bouquet sales, employee scheduling, greenhouse inventory, and finances. The goal is to maximise profit and avoid bankruptcy by making strategic decisions each month.
 
 The program allows users (the shop owner) to:
 - Hire/fire florists (with optional bouquet specialities)
@@ -62,7 +62,7 @@ The program allows users (the shop owner) to:
 
 **Class`Vendor`**
 
-* **vendor\_prices** — *Static* dict of supplier prices for each ingredient.
+* **vendor_prices** — *Static* dict of supplier prices for each ingredient.
 
 **Methods**
 
@@ -86,7 +86,7 @@ The program allows users (the shop owner) to:
 * **Finance** — `pay_florists()`, `pay_rent()`, `pay_storage_costs()`.
 * **Inventory life‑cycle** — `depreciate_inventory()`, `restock()`.
 * **Sales** — `calculate_income()`, `fulfill_orders()`.
-* **Labour feasibility** — `can_fulfill_orders_with_specialists()` — minute‑by‑minute allocation that gives each specialist a ½‑time advantage, returning `True`/`False` so `main.py` can stop the user before overselling.
+* **Labour feasibility** — `can_fulfill_orders_with_specialists()` — minute‑by‑minute allocation that gives each specialist a half-time advantage, returning `True`/`False` so `main.py` can stop the user before overselling.
 
 All cost‑deduction methods raise **`RuntimeError`** if cash would go negative; `main.py` traps this to declare bankruptcy and end the game.
 
