@@ -39,13 +39,14 @@ class FlowerShop:
     def remove_florist(self, name):
         """Remove a florist by name."""
         self.florists = [f for f in self.florists if f.name != name]
-
+    '''
     # === Main monthly simulation logic ===
     def get_total_labour_minutes(self):
         """Total bouquet making time available from all florists.
         Return the bouquet‑making minutes available this month.
         Each florist works ``MONTHLY_HOURS`` hours; multiply by 60 to convert hours to minutes"""
         return sum([Florist.MONTHLY_HOURS * 60 for _ in self.florists])
+    '''
 
     def pay_florists(self):
         """Pay all florists for the month."""
@@ -65,6 +66,7 @@ class FlowerShop:
         self.cash -= cost
         return cost
     '''
+
     def pay_rent(self):
         """Pay the fixed monthly rent(1000).
         Returns:
@@ -138,3 +140,44 @@ class FlowerShop:
         for k, v in self.inventory.items():
             print(f"{k}: {v}")
         print(f"Current cash: £{self.cash:.2f}")
+
+    def can_fulfill_orders_with_specialists(self, order_dict):
+        """
+        Check if all orders can be fulfilled within the total available labour,
+        accounting for florist specialities (specialists make their bouquet in half time).
+        Returns True/False.
+        """
+        # Remaining minutes for each florist (reset monthly)
+        florist_minutes = {f: Florist.MONTHLY_HOURS * 60 for f in self.florists}
+        for btype, qty in order_dict.items():
+            prep_time = Bouquet.types[btype]['prep_time']
+            # Priority allocation to specialist florists
+            specialists = [f for f in self.florists if f.speciality == btype]
+            nonspecialists = [f for f in self.florists if f.speciality != btype]
+            remaining_qty = qty
+
+            # Assigned to specialists
+            for sp in specialists:
+                per_bouquet_time = max(1, prep_time // 2)
+                max_bouquets = florist_minutes[sp] // per_bouquet_time
+                this_qty = min(max_bouquets, remaining_qty)
+                florist_minutes[sp] -= this_qty * per_bouquet_time
+                remaining_qty -= this_qty
+                if remaining_qty == 0:
+                    break
+
+            # Assigned to non-specialists
+            if remaining_qty > 0:
+                for nsp in nonspecialists:
+                    per_bouquet_time = prep_time
+                    max_bouquets = florist_minutes[nsp] // per_bouquet_time
+                    this_qty = min(max_bouquets, remaining_qty)
+                    florist_minutes[nsp] -= this_qty * per_bouquet_time
+                    remaining_qty -= this_qty
+                    if remaining_qty == 0:
+                        break
+
+            if remaining_qty > 0:
+                return False
+
+        return True

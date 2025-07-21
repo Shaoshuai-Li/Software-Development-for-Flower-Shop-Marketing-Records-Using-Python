@@ -24,7 +24,9 @@ def input_int(prompt, min_value=0, max_value=None, allow_blank=False):
             print("Please enter a valid integer.")
 
 def main():
-    '''Command‑line entry point running the monthly simulation loop'''
+    """
+    Command‑line entry point running the monthly simulation loop
+    """
     print("-"*50)
     print("Welcome to the FlowerShop Simulator!")
     print("-"*50)
@@ -41,6 +43,85 @@ def main():
         print("*" * 70)
         print(f"MONTH {m+1} BEGIN!")
         # Show current staff and add/remove florists
+        print(f"Current number of florists: {len(shop.florists)}")
+        max_hire = shop.MAX_FLORISTS - len(shop.florists)
+        max_fire = len(shop.florists)-1
+        while True:
+            change = input_int(
+                f"How many florists would you like to hire or fire this month? (positive to hire [max {max_hire}], negative to fire [max {max_fire}], 0 to skip): ",
+                -max_fire, max_hire
+            )
+            if change < 0 and abs(change) > max_fire:
+                print(f"You must keep at least one florist. You can only remove up to {max_fire} this month.")
+                continue
+            if change > 0 and change > max_hire:
+                print(f"You can only hire up to {max_hire} new florists.")
+                continue
+
+
+            if change == 0 and len(shop.florists) == 0:
+                print("You must have at least one florist.")
+                continue
+
+
+            break
+
+        if change > 0:
+            for i in range(change):
+                while True:
+                    name = input("Please input florist name (unique, non-blank): ").strip()
+                    if not name:
+                        print("Name cannot be blank.")
+                        continue
+                    try:
+                        spec = input("Does this florist have a speciality bouquet? (leave blank for none): ").strip()
+                        if spec and spec not in Bouquet.types:
+                            print("Invalid bouquet type.")
+                            continue
+                        shop.add_florist(name, spec if spec else None)
+                        break
+                    except Exception as e:
+                        print("Error:", e)
+        elif change < 0:
+            to_remove = abs(change)
+            for i in range(to_remove):
+                while True:
+                    name = input("Enter name of florist to remove: ").strip()
+                    if name not in [f.name for f in shop.florists]:
+                        print("Florist not found.")
+                    else:
+                        shop.remove_florist(name)
+                        print(f"Removed {name}.")
+                        break
+        """
+        if len(shop.florists) < shop.MIN_FLORISTS:
+            print("You must have at least one florist. Adding a default florist: 'Default'.")
+            shop.add_florist(f"Default{m+1}")
+        """
+
+        """
+        if len(shop.florists) < shop.MIN_FLORISTS:
+            print("You must have at least one florist.")
+            # 强制进入雇佣流程，直到至少雇佣一位花艺师
+            while len(shop.florists) < shop.MIN_FLORISTS:
+                name = input("Please input florist name (unique, non-blank): ").strip()
+                if not name:
+                    print("Name cannot be blank.")
+                    continue
+                try:
+                    spec = input("Does this florist have a speciality bouquet? (leave blank for none): ").strip()
+                    if spec and spec not in Bouquet.types:
+                        print("Invalid bouquet type.")
+                        continue
+                    shop.add_florist(name, spec if spec else None)
+                except Exception as e:
+                    print("Error:", e)
+        """
+
+        print("Current staff:", [str(f) for f in shop.florists])
+
+
+        """
         print(f"Current number of florists: {len(shop.florists)}")
         change = input_int(f"How many florists would you like to hire or fire this month? (positive to hire, negative to fire, 0 to skip): ", -shop.MAX_FLORISTS, shop.MAX_FLORISTS)
         # Handle hiring
@@ -77,24 +158,26 @@ def main():
             shop.add_florist(f"Default{m+1}")
 
         print("Current staff:", [str(f) for f in shop.florists])
+        """
 
         # Bouquet sales input
         temp_inventory = shop.inventory.copy()
         orders = {}
-        max_labour = shop.get_total_labour_minutes()
-        total_labour = 0
+        #max_labour = shop.get_total_labour_minutes()
+        #total_labour = 0
         for btype in Bouquet.types:
             while True:
                 qty = input_int(
                     f"{btype} (max demand {Bouquet.types[btype]['demand']}): ",
-                    0, Bouquet.types[btype]['demand']
-                )
+                    0, Bouquet.types[btype]['demand'])
+                """
 
                 # 检查 labour
                 labour_needed = Bouquet.types[btype]['prep_time'] * qty
                 if total_labour + labour_needed > max_labour:
                     print("Not enough employee resources to complete this many bouquets.")
                     continue
+                """
 
                 # 检查 & 扣除临时库存
                 ok = True
@@ -107,9 +190,20 @@ def main():
                     print("Insufficient supplies for this bouquet.")
                     continue
 
+                orders_temp = orders.copy()
+                orders_temp[btype] = qty
+                if not shop.can_fulfill_orders_with_specialists(orders_temp):
+                    print("Not enough employee resources (with specialities) to complete this many bouquets.")
+                    continue
+
+
+
+
+
+
                 # 合法 —— 更新
                 orders[btype] = qty
-                total_labour += labour_needed
+                #total_labour += labour_needed
                 for fl in ("Greenery", "Roses", "Daisies"):
                     temp_inventory[fl] -= Bouquet.types[btype][fl] * qty
                 break
@@ -146,14 +240,14 @@ def main():
             gh_cost = shop.pay_greenhouse()
             print(f"+ Greenhouse costs: £{gh_cost:.2f}")
             '''
-            # 3️⃣ 房租rent
+            # rent
             rent_cost = shop.pay_rent()
             print(f"Outcome-Rent: £{rent_cost:.2f}")
 
             # 扣库存（售出）
             shop.fulfill_orders(orders)
 
-            # 仓储费（售后、折旧前）Storage fees (after sales, before depreciation)
+            # Storage fees (after sales, before depreciation)
             storage_cost = shop.pay_storage_costs()
             print(f"Outcome-Greenhouse costs: £{storage_cost:.2f}")
 
