@@ -70,10 +70,10 @@ def main():
         if change > 0:
             for i in range(change):
                 while True:
-                    name = input("Please input florist name (unique, non-blank): ").strip()
+                    name = input("Please input florist name (unique and in English): ").strip()
                     #Cannot be blank
                     if not name:
-                        print("Sorry,name cannot be blank,Please try again.")
+                        print("Sorry,name cannot be blank.Please use English letters.")
                         continue
                     #Not entirely digital
                     if name.isdigit():
@@ -81,7 +81,9 @@ def main():
                         continue
 
                     try:
-                        spec = input("Does this florist have a speciality bouquet? (leave blank for none): ").strip()
+                        spec = input("Does this florist have a speciality bouquet? "
+                                     "If yes, enter the full bouquet name (e.g. 'Fern-tastic'), "
+                                     "otherwise leave blank and press Enter: ").strip()
                         if spec and spec not in Bouquet.types:
                             print("Invalid bouquet type,Please try again.")
                             continue
@@ -100,30 +102,7 @@ def main():
                         shop.remove_florist(name)
                         print(f"Removed {name}.")
                         break
-        """
-        if len(shop.florists) < shop.MIN_FLORISTS:
-            print("You must have at least one florist. Adding a default florist: 'Default'.")
-            shop.add_florist(f"Default{m+1}")
-        """
 
-        """
-        if len(shop.florists) < shop.MIN_FLORISTS:
-            print("You must have at least one florist.")
-            # 强制进入雇佣流程，直到至少雇佣一位花艺师
-            while len(shop.florists) < shop.MIN_FLORISTS:
-                name = input("Please input florist name (unique, non-blank): ").strip()
-                if not name:
-                    print("Name cannot be blank.")
-                    continue
-                try:
-                    spec = input("Does this florist have a speciality bouquet? (leave blank for none): ").strip()
-                    if spec and spec not in Bouquet.types:
-                        print("Invalid bouquet type.")
-                        continue
-                    shop.add_florist(name, spec if spec else None)
-                except Exception as e:
-                    print("Error:", e)
-        """
 
         print("Current staff:", [str(f) for f in shop.florists])
 
@@ -186,7 +165,7 @@ def main():
                     continue
                 """
 
-                # 检查 & 扣除临时库存
+                # Check and deduct temporary inventory
                 ok = True
                 for fl in ("Greenery", "Roses", "Daisies"):
                     need = Bouquet.types[btype][fl] * qty
@@ -204,32 +183,13 @@ def main():
                     continue
 
 
-
-
-
-
-                # 合法 —— 更新
                 orders[btype] = qty
                 #total_labour += labour_needed
                 for fl in ("Greenery", "Roses", "Daisies"):
                     temp_inventory[fl] -= Bouquet.types[btype][fl] * qty
                 break
 
-            '''
-            原来的
-            while True:
-                qty = input_int(f"{btype} (max demand {Bouquet.types[btype]['demand']}): ", 0, Bouquet.types[btype]['demand'])
-                if not shop.can_fulfill_order(btype, qty):
-                    print("Insufficient supplies for this bouquet.")
-                    continue
-                labour_needed = Bouquet.types[btype]['prep_time'] * qty
-                if total_labour + labour_needed > max_labour:
-                    print("Not enough employee resources to complete this many bouquets.")
-                    continue
-                orders[btype] = qty
-                total_labour += labour_needed
-                break
-                '''
+
         print("-"*50)
         print("Month in progress...\n")
         # Month end calculations
@@ -271,7 +231,7 @@ def main():
                         Vendor.show_prices()
                         continue
                     if choice not in ['0', '1']:
-                        print("Invalid input.")
+                        print("Sorry,invalid input.Please try again following the prompts.")
                         continue
                     vendors_choice[flower] = int(choice)
                     break

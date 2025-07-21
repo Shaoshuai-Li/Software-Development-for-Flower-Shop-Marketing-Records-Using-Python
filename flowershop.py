@@ -40,14 +40,6 @@ class FlowerShop:
     def remove_florist(self, name):
         """Remove a florist by name."""
         self.florists = [f for f in self.florists if f.name != name]
-    '''
-    # === Main monthly simulation logic ===
-    def get_total_labour_minutes(self):
-        """Total bouquet making time available from all florists.
-        Return the bouquet‑making minutes available this month.
-        Each florist works ``MONTHLY_HOURS`` hours; multiply by 60 to convert hours to minutes"""
-        return sum([Florist.MONTHLY_HOURS * 60 for _ in self.florists])
-    '''
 
     def pay_florists(self):
         """Pay all florists for the month."""
@@ -56,17 +48,7 @@ class FlowerShop:
             raise RuntimeError("Not enough cash to pay florists!")
         self.cash -= total
         return total
-    '''
-    def pay_greenhouse(self):
-        """Pay monthly greenhouse rent and variable costs."""
-        cost = self.RENT
-        for k in self.inventory:
-            cost += self.GREENHOUSE_COSTS[k] * self.inventory[k]
-        if self.cash < cost:
-            raise RuntimeError("Not enough cash to pay greenhouse!")
-        self.cash -= cost
-        return cost
-    '''
+
 
     def pay_rent(self):
         """Pay the fixed monthly rent(1000).

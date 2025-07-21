@@ -7,7 +7,11 @@ Description: Florist class records information of each florist.
 
 class Florist:
     """
+
     Represents a florist working at the shop.
+    Attributes:
+        name (str): The name of the florist.
+        speciality (str or None): The bouquet type the florist specialises in.
     """
     HOURLY_RATE = 17.5
     MONTHLY_HOURS = 80
@@ -21,5 +25,7 @@ class Florist:
         self.speciality = speciality
 
     def __repr__(self):
-        #Return readable representation used in staff lists
+        """
+        Return readable representation used in staff lists
+        """
         return f"{self.name}" + (f" (specialised in {self.speciality})" if self.speciality else "")
