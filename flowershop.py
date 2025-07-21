@@ -1,6 +1,7 @@
 # flowershop.py
 """
 Author:Shaoshuai Li
+student number:2652166
 Description: Main FlowerShop class to manage cash, inventory, florists, monthly routines.
 """
 

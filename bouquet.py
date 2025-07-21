@@ -1,5 +1,6 @@
 """
 Author: Shaoshuai Li
+student number:2652166
 Description: Bouquet class defines types of bouquets, their ingredient requirements, and time to prepare.
 """
 

@@ -1,6 +1,7 @@
 # main.py
 """
 Author:Shaoshuai Li
+student number:2652166
 Description: Entry point. Handles user interaction and main monthly simulation loop.
 """
 
@@ -17,7 +18,7 @@ def input_int(prompt, min_value=0, max_value=None, allow_blank=False):
         try:
             ivalue = int(value)
             if ivalue < min_value or (max_value is not None and ivalue > max_value):
-                print(f"Sorry,Value must be between {min_value} and {max_value or '∞'}.")
+                print(f"Sorry,Value must be between {min_value} and {max_value or '∞'}.Please try again.")
                 continue
             return ivalue
         except ValueError:
@@ -70,13 +71,19 @@ def main():
             for i in range(change):
                 while True:
                     name = input("Please input florist name (unique, non-blank): ").strip()
+                    #Cannot be blank
                     if not name:
-                        print("Name cannot be blank.")
+                        print("Sorry,name cannot be blank,Please try again.")
                         continue
+                    #Not entirely digital
+                    if name.isdigit():
+                        print("Sorry,name should be in English. Please re-enter.")
+                        continue
+
                     try:
                         spec = input("Does this florist have a speciality bouquet? (leave blank for none): ").strip()
                         if spec and spec not in Bouquet.types:
-                            print("Invalid bouquet type.")
+                            print("Invalid bouquet type,Please try again.")
                             continue
                         shop.add_florist(name, spec if spec else None)
                         break
@@ -88,7 +95,7 @@ def main():
                 while True:
                     name = input("Enter name of florist to remove: ").strip()
                     if name not in [f.name for f in shop.florists]:
-                        print("Florist not found.")
+                        print("Sorry,florist not found.Please try again.")
                     else:
                         shop.remove_florist(name)
                         print(f"Removed {name}.")

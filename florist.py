@@ -1,6 +1,7 @@
 # florist.py
 """
 Author: Shaoshuai Li
+student number:2652166
 Description: Florist class records information of each florist.
 """
 

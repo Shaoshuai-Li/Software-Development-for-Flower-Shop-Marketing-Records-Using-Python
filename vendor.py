@@ -1,6 +1,7 @@
 # vendor.py
 """
 Author:Shaoshuai Li
+student number:2652166
 Description: Vendor class manages supplier prices for each ingredient.
 """
 
