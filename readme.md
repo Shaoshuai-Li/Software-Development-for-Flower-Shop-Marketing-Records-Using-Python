@@ -1,4 +1,3 @@
-# SDPA / SEMTM0024 – Coursework Repository  
 *Author : **Shaoshuai Li***  
 *UoB User: **bf24104***  
 *Module  : Software Development – Programming and Algorithms*  
