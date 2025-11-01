@@ -1,5 +1,5 @@
+*HEllo guys，welcome to my channel！
 *Author : **Shaoshuai Li***  
-*UoB User: **bf24104***  
 *Module  : Software Development – Programming and Algorithms*  
 *GitHub repository:**https://github.com/Shaoshuai-Li/bf24104_SEMTM0024.git***
 ---
